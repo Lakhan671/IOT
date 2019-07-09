@@ -5,7 +5,7 @@ import java.util.WeakHashMap;
 import org.springframework.stereotype.Service;
 
 import com.os.biz.entity.Light;
-import com.os.biz.repo.LightRepository;
+import com.os.biz.repository.LightRepository;
 import com.os.biz.util.BizServerResponse;
 
 import reactor.core.publisher.Flux;

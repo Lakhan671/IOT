@@ -3,14 +3,13 @@ package com.os.biz;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 
 @SpringBootApplication
-@ComponentScan("com.os.biz")
+//@ComponentScan("com.os.biz")
 @EnableReactiveMongoRepositories
 public class FluxApplication {
 

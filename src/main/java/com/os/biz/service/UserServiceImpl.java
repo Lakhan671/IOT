@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.os.biz.entity.User;
-import com.os.biz.repo.UserRepository;
+import com.os.biz.repository.UserRepository;
 import com.os.biz.util.BizServerResponse;
 import com.os.biz.util.ConstantUtil;
 import com.os.biz.util.LoginUtil;
