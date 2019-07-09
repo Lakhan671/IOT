@@ -2,6 +2,8 @@ package com.os.biz.util;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -104,6 +106,11 @@ public class BizServerResponse<T> implements ServerResponse {
 
 	@Override
 	public Mono<Void> writeTo(ServerWebExchange exchange, Context context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public MultiValueMap<String, ResponseCookie> cookies() {
 		// TODO Auto-generated method stub
 		return null;
 	}
