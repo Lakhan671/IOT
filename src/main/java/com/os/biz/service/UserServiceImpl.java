@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(prepareUser(param)).map(user -> {
 			response = new BizServerResponse<>();
 			response.setStatus(true);
+			response.setMessage("Resgistration have been suceessfully.");
 			response.setData(user);
 			return response;
 		});
@@ -88,6 +89,7 @@ public class UserServiceImpl implements UserService {
 			response = new BizServerResponse<>();
 			response.setStatus(true);
 			response.setData(user);
+			response.setMessage("User have been getted successfully.");
 			return response;
 		});
 	}
@@ -98,14 +100,15 @@ public class UserServiceImpl implements UserService {
 	 * @see com.os.biz.service.UserService#findByemail(java.lang.String)
 	 */
 	@Override
-	public Mono<BizServerResponse<?>> login(Map<String, String> email) {
+	public Mono<BizServerResponse<Object>> login(WeakHashMap<String, String> email) {
 		response = new BizServerResponse<>();
 		WeakHashMap<String,String> tokenreapone=new WeakHashMap<>();
 		String token =UUID.randomUUID().toString();
 		tokenreapone.put("tokenId", token);
+		System.out.println(token);
 		response.setMessage("Login have been done successfully");
-		if (Util.valiMobileNo(ConstantUtil.USERNAME)) {
-			return userRepository.findByMobileNo(ConstantUtil.MobileNo).map(user -> {
+		if (Util.valiMobileNo(email.get(ConstantUtil.USERNAME))) {
+			return userRepository.findByMobileNo(email.get(ConstantUtil.USERNAME)).map(user -> {
 				response.setStatus(true);
 				
 				response.setData(tokenreapone);
@@ -114,8 +117,8 @@ public class UserServiceImpl implements UserService {
 			});
 		}
 
-		if (Util.isValidEmail(ConstantUtil.USERNAME)) {
-			return userRepository.findByEmail(ConstantUtil.EMAIL).map(user -> {
+		if (Util.isValidEmail(email.get(ConstantUtil.USERNAME))) {
+			return userRepository.findByEmail(email.get(ConstantUtil.USERNAME)).map(user -> {
 				response.setStatus(true);
 				response.setData(user);
 				response.setData(tokenreapone);

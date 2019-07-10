@@ -18,6 +18,7 @@ public interface UserService {
 		Mono<BizServerResponse<Object>> findByMobileNo(WeakHashMap<String, String> param);
 		Mono<BizServerResponse<Object>> findByName(WeakHashMap<String, String> param);
 		Mono<BizServerResponse<Object>> save(WeakHashMap<String, String> param);
-		Mono<BizServerResponse<?>> login(Map<String, String> email);
+		//Mono<BizServerResponse<Object>> login(Map<String, String> email);
+		Mono<BizServerResponse<Object>> login(WeakHashMap<String, String> email);
 
 }

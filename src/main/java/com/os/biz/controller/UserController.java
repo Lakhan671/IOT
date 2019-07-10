@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -33,7 +33,7 @@ public class UserController {
 		
 	}
 
-	@PostMapping(value = "/register")
+	@PostMapping(value = "/user/register")
 	public Mono<BizServerResponse<Object>> saveUser(@RequestBody WeakHashMap<String, String> param) {
 		return userService.save(param);
 	}
@@ -55,7 +55,7 @@ public class UserController {
 	
 
 	@PostMapping(value = "/user/login")
-	public Mono<BizServerResponse<?>> login(@RequestBody WeakHashMap<String, String> param) {
+	public Mono<BizServerResponse<Object>> login(@RequestBody WeakHashMap<String, String> param) {
 		return userService.login(param);
 	}
 
