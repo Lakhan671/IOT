@@ -48,13 +48,13 @@ public class UserController {
 		return userService.findByName(param);
 	}
 
-	@DeleteMapping(value = "/user/findByMobileNo")
+	@PostMapping(value = "/user/findByMobileNo")
 	public Mono<BizServerResponse<Object>> findUserByMobile(@RequestBody WeakHashMap<String, String> param) {
 		return userService.findByMobileNo(param);
 	}
 	
 
-	@DeleteMapping(value = "/user/login")
+	@PostMapping(value = "/user/login")
 	public Mono<BizServerResponse<?>> login(@RequestBody WeakHashMap<String, String> param) {
 		return userService.login(param);
 	}
