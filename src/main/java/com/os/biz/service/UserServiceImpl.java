@@ -108,9 +108,9 @@ public class UserServiceImpl implements UserService {
 		tokenreapone.put("token", token);
 
 		response.setMessage("Login have been done successfully");
-		if(email.containsKey(ConstantUtil.MobileNo)){
-			if (Util.valiMobileNo(email.get(ConstantUtil.MobileNo))) {
-				return userRepository.findByMobileNo(email.get(ConstantUtil.MobileNo)).map(user -> {
+		if(email.containsKey(ConstantUtil.USERNAME)){
+			if (Util.valiMobileNo(email.get(ConstantUtil.USERNAME))) {
+				return userRepository.findByMobileNo(email.get(ConstantUtil.USERNAME)).map(user -> {
 					response.setStatus(true);
 
 					response.setData(tokenreapone);
@@ -120,10 +120,10 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
-		if(email.containsKey(ConstantUtil.EMAIL)){
-		System.out.print(Util.isValidEmail(email.get(ConstantUtil.EMAIL)));
-		if (Util.isValidEmail(email.get(ConstantUtil.EMAIL))) {
-			return userRepository.findByEmail(email.get(ConstantUtil.EMAIL)).map(user -> {
+		if(email.containsKey(ConstantUtil.USERNAME)){
+		System.out.print(Util.isValidEmail(email.get(ConstantUtil.USERNAME)));
+		if (Util.isValidEmail(email.get(ConstantUtil.USERNAME))) {
+			return userRepository.findByEmail(email.get(ConstantUtil.USERNAME)).map(user -> {
 				response.setStatus(true);
 
 				HashMap<String,String> data = new HashMap<String,String>();
