@@ -14,16 +14,10 @@ import com.os.biz.util.BizServerResponse;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value="/api/light")
+@RequestMapping(value="/api/device")
 public class DeviceController {
 	@Autowired
 	private DeviceService deviceService;
-	@RequestMapping(value="/findByUserId",method=RequestMethod.POST)
-	public Mono<BizServerResponse<?>>getLightByUserId(@RequestBody WeakHashMap<String,String> param){
-		
-		return deviceService.findByUserId(param);
-	}
-	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public Mono<BizServerResponse<?>>saveLight(@RequestBody WeakHashMap<String,String> param){
 		
