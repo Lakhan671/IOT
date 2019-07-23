@@ -20,7 +20,17 @@ public class BizServerResponse<T> implements ServerResponse {
 	private String ErrorCode;
 	private String message;
 	private T data;
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	private String userName;
+
 
 	/**
 	 * @return the data

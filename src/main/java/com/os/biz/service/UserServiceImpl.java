@@ -1,6 +1,6 @@
 package com.os.biz.service;
 
-import java.util.Map;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
@@ -102,29 +102,38 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Mono<BizServerResponse<Object>> login(WeakHashMap<String, String> email) {
 		response = new BizServerResponse<>();
+		System.out.println(email);
 		WeakHashMap<String,String> tokenreapone=new WeakHashMap<>();
 		String token =UUID.randomUUID().toString();
-		tokenreapone.put("tokenId", token);
-		System.out.println(token);
+		tokenreapone.put("token", token);
+
 		response.setMessage("Login have been done successfully");
-		if (Util.valiMobileNo(email.get(ConstantUtil.USERNAME))) {
-			return userRepository.findByMobileNo(email.get(ConstantUtil.USERNAME)).map(user -> {
+		if(email.containsKey(ConstantUtil.MobileNo)){
+			if (Util.valiMobileNo(email.get(ConstantUtil.MobileNo))) {
+				return userRepository.findByMobileNo(email.get(ConstantUtil.MobileNo)).map(user -> {
+					response.setStatus(true);
+
+					response.setData(tokenreapone);
+					LoginUtil.saveTakenId(token, user);
+					return response;
+				});
+			}
+		}
+
+		if(email.containsKey(ConstantUtil.EMAIL)){
+		System.out.print(Util.isValidEmail(email.get(ConstantUtil.EMAIL)));
+		if (Util.isValidEmail(email.get(ConstantUtil.EMAIL))) {
+			return userRepository.findByEmail(email.get(ConstantUtil.EMAIL)).map(user -> {
 				response.setStatus(true);
-				
+
+				HashMap<String,String> data = new HashMap<String,String>();
+
+				response.setUserName(user.getName());
 				response.setData(tokenreapone);
 				LoginUtil.saveTakenId(token, user);
 				return response;
 			});
 		}
-
-		if (Util.isValidEmail(email.get(ConstantUtil.USERNAME))) {
-			return userRepository.findByEmail(email.get(ConstantUtil.USERNAME)).map(user -> {
-				response.setStatus(true);
-				response.setData(user);
-				response.setData(tokenreapone);
-				LoginUtil.saveTakenId(token, user);
-				return response;
-			});
 		}
 		response = new BizServerResponse<>();
 		response.setStatus(false);
