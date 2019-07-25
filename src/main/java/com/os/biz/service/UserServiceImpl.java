@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Mono<BizServerResponse<Object>> save(WeakHashMap<String, String> param) {
+	//userRepository.findByEmail(param.get(ConstantUtil.USERNAME)))
 		return userRepository.save(prepareUser(param)).map(user -> {
 			response = new BizServerResponse<>();
 			response.setStatus(true);
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService {
 			response.setData(user);
 			return response;
 		});
+		
 	}
 
 	@Override
@@ -187,6 +189,21 @@ public class UserServiceImpl implements UserService {
 		if (param.containsKey("password")) {
 			u.setPassword(param.get("password"));
 		}
+		if (param.containsKey("email")) {
+			u.setUsername(param.get("email"));
+		}else {
+			if (param.containsKey("mobileNo")) {
+				u.setUsername(param.get("mobileNo"));
+			}
+		}
+		
+		
 		return u;
 	}
+
+	@Override
+	public Mono<User> findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+	
 }
