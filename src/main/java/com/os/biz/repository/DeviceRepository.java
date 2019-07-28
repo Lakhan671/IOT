@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface DeviceRepository extends ReactiveMongoRepository <Device, String> {
 
-	public abstract Flux<Device> findByOnOffAndUserIdAllIgnoreCase(String onnOff, String userId);
+	public abstract Flux<Device> findByOnOffAndUserIdAllIgnoreCase(boolean onnOff, String userId);
 
 	public abstract Flux<Device> findByTypeAndUserIdAllIgnoreCase(String type, String userId);
 

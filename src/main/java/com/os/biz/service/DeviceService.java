@@ -2,16 +2,14 @@ package com.os.biz.service;
 
 import java.util.WeakHashMap;
 
-import com.os.biz.entity.Device;
 import com.os.biz.util.BizServerResponse;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface DeviceService {
 	public abstract Mono<BizServerResponse<?>> findById(String id);
 
-	public abstract Flux<Device> findAll();
+	public abstract Mono<BizServerResponse<?>> findAll();
 
 	public abstract Mono<BizServerResponse<?>> save(WeakHashMap<String, String> user);
 

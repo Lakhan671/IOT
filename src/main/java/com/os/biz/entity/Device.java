@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author Lakhan
  *
  */
-@Document(collection = "light")
+@Document(collection = "device")
 public class Device implements Serializable {
 	private static final long serialVersionUID = 8707228725292197944L;
 	@Id
@@ -69,6 +69,9 @@ public class Device implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,57 +86,80 @@ public class Device implements Serializable {
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Device other = (Device) obj;
 		if (description == null) {
-			if (other.description != null)
+			if (other.description != null) {
 				return false;
-		} else if (!description.equals(other.description))
+			}
+		} else if (!description.equals(other.description)) {
 			return false;
+		}
 		if (deviceLocation == null) {
-			if (other.deviceLocation != null)
+			if (other.deviceLocation != null) {
 				return false;
-		} else if (!deviceLocation.equals(other.deviceLocation))
+			}
+		} else if (!deviceLocation.equals(other.deviceLocation)) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (latitude == null) {
-			if (other.latitude != null)
+			if (other.latitude != null) {
 				return false;
-		} else if (!latitude.equals(other.latitude))
+			}
+		} else if (!latitude.equals(other.latitude)) {
 			return false;
+		}
 		if (longitude == null) {
-			if (other.longitude != null)
+			if (other.longitude != null) {
 				return false;
-		} else if (!longitude.equals(other.longitude))
+			}
+		} else if (!longitude.equals(other.longitude)) {
 			return false;
+		}
 		if (onOff == null) {
-			if (other.onOff != null)
+			if (other.onOff != null) {
 				return false;
-		} else if (!onOff.equals(other.onOff))
+			}
+		} else if (!onOff.equals(other.onOff)) {
 			return false;
+		}
 		if (type == null) {
-			if (other.type != null)
+			if (other.type != null) {
 				return false;
-		} else if (!type.equals(other.type))
+			}
+		} else if (!type.equals(other.type)) {
 			return false;
+		}
 		if (userId == null) {
-			if (other.userId != null)
+			if (other.userId != null) {
 				return false;
-		} else if (!userId.equals(other.userId))
+			}
+		} else if (!userId.equals(other.userId)) {
 			return false;
+		}
 		return true;
 	}
+
 
 	
 }

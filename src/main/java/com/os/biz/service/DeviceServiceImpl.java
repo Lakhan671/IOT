@@ -1,11 +1,14 @@
 package com.os.biz.service;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
+
 import org.springframework.stereotype.Service;
+
 import com.os.biz.entity.Device;
 import com.os.biz.repository.DeviceRepository;
 import com.os.biz.util.BizServerResponse;
-import reactor.core.publisher.Flux;
+
 import reactor.core.publisher.Mono;
 
 @Service
@@ -40,12 +43,15 @@ public class DeviceServiceImpl implements DeviceService {
 	 * @see com.os.biz.service.LightService#findAll()
 	 */
 	@Override
-	public Flux<Device> findAll() {
-		response = new BizServerResponse<>();
-		// response.setData();
-		response.setStatus(true);
-		response.setMessage("All Device have been get successfully.");
-		return deviceRepository.findAll();
+	public Mono<BizServerResponse<?>>  findAll() {
+		
+		return deviceRepository.findAll().collectList().map(device->{
+			response = new BizServerResponse<>();
+			response.setStatus(true);
+			response.setData(device);
+			response.setMessage("All Device have been get successfully.");
+			return response;
+		});
 	}
 
 	/*
@@ -61,12 +67,15 @@ public class DeviceServiceImpl implements DeviceService {
 		light.setOnOff(Boolean.valueOf(user.get("onOff")));
 		light.setDeviceLocation(user.get("deviceLocation"));
 		light.setType(user.get("type"));
-		response = new BizServerResponse<>();
-		response.setData(deviceRepository.save(light));
-		response.setStatus(true);
-		response.setMessage("Device have been added successfully.");
-		return Mono.just(response);
-
+		light.setUserId(user.get("userId"));
+		light.setDescription(user.get("description"));
+		return deviceRepository.save(light).map(device -> {
+			response = new BizServerResponse<>();
+			response.setStatus(true);
+			response.setData(device);
+			response.setMessage("Device have been added successfully.");
+			return response;
+		});
 	}
 
 	/*
@@ -103,11 +112,14 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public Mono<BizServerResponse<?>> findByOnOffAndUserIdAllIgnoreCase(WeakHashMap<String, String> param) {
-		response = new BizServerResponse<>();
-		response.setData(deviceRepository.findByOnOffAndUserIdAllIgnoreCase(param.get("onnOff"),param.get("userId")));
-		response.setStatus(true);
-		response.setMessage(param.get("onnOff")+" Devices have been getted successfully.");
-		return Mono.just(response);
+		return deviceRepository.findByOnOffAndUserIdAllIgnoreCase(Boolean.valueOf(param.get("onOff")), param.get("userId"))
+				.collectList().map(device -> {
+					response = new BizServerResponse<>();
+					response.setData(device);
+					response.setStatus(true);
+					response.setMessage(param.get("onnOff") + " Devices have been getted successfully.");
+					return response;
+				});
 	}
 
 	/*
@@ -119,11 +131,15 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public Mono<BizServerResponse<?>> findByTypeAndUserIdAllIgnoreCase(WeakHashMap<String, String> param) {
-		response = new BizServerResponse<>();
-		response.setData(deviceRepository.findByTypeAndUserIdAllIgnoreCase(param.get("type"),param.get("userId")));
-		response.setStatus(true);
-		response.setMessage("Device type have been getted successfully.");
-		return Mono.just(response);
+
+		return deviceRepository.findByTypeAndUserIdAllIgnoreCase(param.get("type"), param.get("userId")).collectList()
+				.map(device -> {
+					response = new BizServerResponse<>();
+					response.setStatus(true);
+					response.setData(device);
+					response.setMessage("Device type have been getted successfully.");
+					return response;
+				});
 	}
 
 	/*
@@ -135,11 +151,15 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public Mono<BizServerResponse<?>> findByLightLocationAndUserIdAllIgnoreCase(WeakHashMap<String, String> param) {
-		response = new BizServerResponse<>();
-		response.setData(deviceRepository.findByDeviceLocationAndUserIdAllIgnoreCase(param.get("lightLocation"),param.get("userId")));
-		response.setStatus(true);
-		response.setMessage("Location have been getted successfully.");
-		return Mono.just(response);
+		return deviceRepository
+				.findByDeviceLocationAndUserIdAllIgnoreCase(param.get("deviceLocation"), param.get("userId"))
+				.collectList().map(device -> {
+					response = new BizServerResponse<>();
+					response.setData(device);
+					response.setStatus(true);
+					response.setMessage("Location have been getted successfully.");
+					return response;
+				});
 	}
 
 	/*
@@ -148,11 +168,13 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public Mono<BizServerResponse<?>> findByUserId(WeakHashMap<String, String> param) {
-		response = new BizServerResponse<>();
-		response.setData(deviceRepository.findByUserId(param.get("userId")));
-		response.setStatus(true);
-		response.setMessage("Data have been getted successfully.");
-		return Mono.just(response);
+		return deviceRepository.findByUserId(param.get("userId")).collectList().map(mm -> {
+			response = new BizServerResponse<>();
+			response.setStatus(true);
+			response.setMessage("Data have been getted successfully.");
+			response.setData(mm);
+			return response;
+		});
 	}
 
 }

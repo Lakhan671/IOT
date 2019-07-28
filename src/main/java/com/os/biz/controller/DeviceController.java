@@ -19,7 +19,7 @@ public class DeviceController {
 	@Autowired
 	private DeviceService deviceService;
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public Mono<BizServerResponse<?>>saveLight(@RequestBody WeakHashMap<String,String> param){
+	public Mono<BizServerResponse<?>>saveDevice(@RequestBody WeakHashMap<String,String> param){
 		
 		return deviceService.save(param);
 	}
@@ -30,7 +30,7 @@ public class DeviceController {
 		
 	}
 	
-	@RequestMapping(value="/findByLightLocationAndUserI",method=RequestMethod.POST)
+	@RequestMapping(value="/findByLightLocationAndUserId",method=RequestMethod.POST)
 	public Mono<BizServerResponse<?>>findByLightLocationAndUserI(@RequestBody WeakHashMap<String,String> param){
 		return deviceService.findByLightLocationAndUserIdAllIgnoreCase(param);
 		
