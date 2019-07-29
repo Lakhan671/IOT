@@ -44,6 +44,46 @@
 				"url": "http://localhost:8081/api/login"
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/user/1/5",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "lakhan eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVVNFUiJdLCJzdWIiOiJsYWtoYW5zNjcxQGdtYWlsLmNvbSIsImlhdCI6MTU2NDQyNzA5OSwiZXhwIjoxNTY0NDU1ODk5fQ.9P2ZtDzXeBlWZvtJeLuZngaViBxlb1dsIT7S9SY_IJ8yP0Cr22TplZtnHPlAQ1kzpjws6vtUm4XQnDkv8t1qMA"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"lakhan\"}"
+				},
+				"url": "http://localhost:8081/api/user/1/5"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"lakhans671@gmail.com\",\"password\":\"lakhan\"}"
+				},
+				"url": "http://localhost:8081/api/login"
+			},
+			"response": []
 		}
 	]
 }

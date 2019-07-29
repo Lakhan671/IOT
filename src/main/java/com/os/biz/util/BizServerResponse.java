@@ -3,6 +3,8 @@ package com.os.biz.util;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
@@ -14,7 +16,7 @@ import reactor.core.publisher.Mono;
  *
  * @param <T>
  */
-public class BizServerResponse<T> implements ServerResponse {
+public class BizServerResponse<T> implements ServerResponse,SecurityContext {
 	private boolean status;
 	private String error;
 	private String ErrorCode;
@@ -123,6 +125,18 @@ public class BizServerResponse<T> implements ServerResponse {
 	public MultiValueMap<String, ResponseCookie> cookies() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Authentication getAuthentication() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAuthentication(Authentication authentication) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

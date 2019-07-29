@@ -1,5 +1,7 @@
 package com.os.biz.config.security;
 
+import javax.naming.AuthenticationNotSupportedException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -29,7 +31,7 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
 	}
 
 	@Override
-	public Mono<SecurityContext> load(ServerWebExchange swe) {
+	public Mono<SecurityContext> load(ServerWebExchange swe){
 		ServerHttpRequest request = swe.getRequest();
 		String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 		if (authHeader != null && authHeader.startsWith("lakhan ")) {
@@ -39,7 +41,7 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
 				return new SecurityContextImpl(authentication);
 			});
 		} else {
-			return Mono.empty();
+		return	Mono.empty();
 		}
 	}
 	

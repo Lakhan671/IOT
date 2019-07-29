@@ -1,5 +1,7 @@
 package com.os.biz.controller;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import com.os.biz.config.security.PBKDF2Encoder;
 import com.os.biz.entity.AuthRequest;
 import com.os.biz.entity.AuthResponse;
 import com.os.biz.service.UserService;
+import com.os.biz.util.BizServerResponse;
 
 import reactor.core.publisher.Mono;
 
@@ -26,22 +29,29 @@ public class AuthenticationController {
 
 	@Autowired
 	private JWTUtil jwtUtil;
-	
+	private BizServerResponse<Object> response;
 	/*
 	 * @Autowired private PBKDF2Encoder passwordEncoder;
 	 */
 	@Autowired
 	private UserService userRepository;
-//passwordEncoder.encode(
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public Mono<ResponseEntity<?>> login(@RequestBody AuthRequest ar) {
+	public Mono<BizServerResponse<Object>> login(@RequestBody AuthRequest ar) {
+		    response = new BizServerResponse<>();
+		    response.setStatus(false);
+			response.setMessage("your are not authroize to login. Please  signup....");
 		return userRepository.findByUsername(ar.getUsername()).map((userDetails) -> {
+			response.setData(ar);
 			if (ar.getPassword().equals(userDetails.getPassword())) {
-				return ResponseEntity.ok(new AuthResponse(jwtUtil.generateToken(userDetails)));
-			} else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				response.setStatus(true);
+				response.setMessage("you have beein login suceessfully.");
+				response.setData(new AuthResponse(jwtUtil.generateToken(userDetails)));
+			} else if(Objects.nonNull(ar)) {
+				response.setStatus(false);
+				response.setMessage("user name or password invalid.");
 			}
-		}).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+			return response;
+		}).defaultIfEmpty(response);
 	}
 
 }
