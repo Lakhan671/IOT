@@ -155,8 +155,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Flux<BizServerResponse<?>> findAll() {
-		return userRepository.findAll().map(user -> {
+	public Mono<BizServerResponse<?>> findAll() {
+		return userRepository.findAll().collectList().map(user -> {
 			response = new BizServerResponse<>();
 			response.setStatus(true);
 			response.setData(user);

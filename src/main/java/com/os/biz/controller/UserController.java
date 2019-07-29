@@ -26,7 +26,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/user/{page}/{size}")
-	public Flux<BizServerResponse<?>> getUser(@RequestBody WeakHashMap<String, String> param) {
+	public Mono<BizServerResponse<?>> getUser(@RequestBody WeakHashMap<String, String> param) {
 		return userService.findAll();
 	}
 
