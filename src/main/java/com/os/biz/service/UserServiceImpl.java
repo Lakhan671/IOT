@@ -155,8 +155,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Mono<BizServerResponse<?>> findAll() {
-		return userRepository.findAll().collectList().map(user -> {
+	public Mono<BizServerResponse<?>> findAll(int page,int size) {
+		return userRepository.retrieveAllUsersPaged(PageRequest.of(page, size)).collectList().map(user -> {
 			response = new BizServerResponse<>();
 			response.setStatus(true);
 			response.setData(user);

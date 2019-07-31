@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 public interface UserService {
 	    Mono<BizServerResponse<Object>> findById(String id);
-	    Mono<BizServerResponse<?>> findAll();
+	   // Mono<BizServerResponse<?>> findAll();
 	    Mono<BizServerResponse<Object>> deleteById(String id);
 	    Mono<Void> deleteAll(String key);
 		Mono<BizServerResponse<?>> findByemail(WeakHashMap<String, String> email);
@@ -21,5 +21,6 @@ public interface UserService {
 		//Mono<BizServerResponse<Object>> login(Map<String, String> email);
 		Mono<BizServerResponse<Object>> login(WeakHashMap<String, String> email);
 		public Mono<User> findByUsername(String username);
+		Mono<BizServerResponse<?>> findAll(int page, int size);
 
 }

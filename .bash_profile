@@ -1,1 +1,1 @@
-alias npp='nptepad++.exe-multiinst-nosession
+alias npp='nptepad++.exe --multiinst--nosession'

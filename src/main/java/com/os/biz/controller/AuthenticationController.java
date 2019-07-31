@@ -2,6 +2,7 @@ package com.os.biz.controller;
 
 import java.util.Objects;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,11 @@ import com.os.biz.config.security.JWTUtil;
 import com.os.biz.config.security.PBKDF2Encoder;
 import com.os.biz.entity.AuthRequest;
 import com.os.biz.entity.AuthResponse;
+import com.os.biz.repository.LoggingInMemoryHttpTraceRepository;
 import com.os.biz.service.UserService;
 import com.os.biz.util.BizServerResponse;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -25,6 +28,7 @@ import reactor.core.publisher.Mono;
  */
 @RestController
 @RequestMapping(value="/api")
+@Slf4j
 public class AuthenticationController {
 
 	@Autowired
@@ -37,6 +41,7 @@ public class AuthenticationController {
 	private UserService userRepository;
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public Mono<BizServerResponse<Object>> login(@RequestBody AuthRequest ar) {
+		log.info("Trace:" + ToStringBuilder.reflectionToString(ar));
 		    response = new BizServerResponse<>();
 		    response.setStatus(false);
 			response.setMessage("your are not authroize to login. Please  signup....");

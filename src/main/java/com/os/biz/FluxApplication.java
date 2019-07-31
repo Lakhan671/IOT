@@ -25,4 +25,6 @@ public class FluxApplication {
     protected String getDatabaseName() {
         return "iots";
     }
+    
+    
 }
