@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 public interface UserRepository extends ReactiveCrudRepository<User, String> {
 	public abstract Flux<User> findByNameLike(String name, Pageable pageable);
 
-	public abstract Mono<User> findByMobileNo(String mob);
+	public abstract Flux<User> findByMobileNo(String mob);
 
 	public abstract Mono<User> findByEmail(String email);
 

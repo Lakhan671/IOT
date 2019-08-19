@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public Mono<BizServerResponse<Object>> findByMobileNo(WeakHashMap<String, String> param) {
-		return userRepository.findByMobileNo(param.get("mobileNo")).map(user -> {
+		return userRepository.findByMobileNo(param.get("mobileNo")).collectList().map(user -> {
 			response = new BizServerResponse<>();
 			response.setStatus(true);
 			response.setData(user);
@@ -111,11 +111,11 @@ public class UserServiceImpl implements UserService {
 		response.setMessage("Login have been done successfully");
 		if(email.containsKey(ConstantUtil.USERNAME)){
 			if (Util.valiMobileNo(email.get(ConstantUtil.USERNAME))) {
-				return userRepository.findByMobileNo(email.get(ConstantUtil.USERNAME)).map(user -> {
+				return userRepository.findByMobileNo(email.get(ConstantUtil.USERNAME)).collectList().map(user -> {
 					response.setStatus(true);
 
 					response.setData(tokenreapone);
-					LoginUtil.saveTakenId(token, user);
+					LoginUtil.saveTakenId(token, user.get(0));
 					return response;
 				});
 			}
