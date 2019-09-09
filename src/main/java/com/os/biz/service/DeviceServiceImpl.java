@@ -183,13 +183,17 @@ public class DeviceServiceImpl implements DeviceService {
 		return deviceRepository.findById(param.get("id").trim())
                 .map(p -> {
                     p.setOnOff(Boolean.valueOf(param.get("onOff")));
-                   
+                    p.setLatitude(param.get("latitude"));
+            		p.setLongitude(param.get("longitude"));
+            		p.setDeviceLocation(param.get("deviceLocation"));
+            		p.setType(param.get("type"));
+            		p.setDescription(param.get("description"));
                     return p;
                 })
                 .flatMap(p -> deviceRepository.save(p)).map(pp->{
                 	response = new BizServerResponse<>();
                 	response.setStatus(true);
-        			response.setMessage("Data have been getted successfully.");
+        			response.setMessage("device have been updated successfully.");
         			response.setData(pp);
         			return response;
                 });
