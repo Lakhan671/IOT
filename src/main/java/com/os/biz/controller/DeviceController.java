@@ -53,7 +53,7 @@ public class DeviceController {
 		
 	}
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public Mono<Device>update(@RequestBody WeakHashMap<String,String> param){
+	public Mono<BizServerResponse<?>>update(@RequestBody WeakHashMap<String,String> param){
 		return deviceService.update(param);
 		
 	}

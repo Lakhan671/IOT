@@ -26,5 +26,5 @@ public interface DeviceService {
 
 	public abstract Mono<BizServerResponse<?>> findByLightLocationAndUserIdAllIgnoreCase(WeakHashMap<String, String> param);
 
-	Mono<Device> update(WeakHashMap<String, String> param);
+	Mono<BizServerResponse<?>> update(WeakHashMap<String, String> param);
 }

@@ -178,7 +178,7 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 	
 	@Override
-	public Mono<Device> update(WeakHashMap<String, String> param) {
+	public Mono<BizServerResponse<?>> update(WeakHashMap<String, String> param) {
 		
 		return deviceRepository.findById(param.get("id").trim())
                 .map(p -> {
@@ -186,7 +186,13 @@ public class DeviceServiceImpl implements DeviceService {
                    
                     return p;
                 })
-                .flatMap(p -> deviceRepository.save(p));
+                .flatMap(p -> deviceRepository.save(p)).map(pp->{
+                	response = new BizServerResponse<>();
+                	response.setStatus(true);
+        			response.setMessage("Data have been getted successfully.");
+        			response.setData(pp);
+        			return response;
+                });
 		  
 	}
 
