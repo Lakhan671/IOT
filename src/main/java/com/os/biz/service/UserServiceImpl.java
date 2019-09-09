@@ -16,6 +16,10 @@ import com.os.biz.util.Util;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * @author Lakhan
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
@@ -202,7 +206,39 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Mono<User> findByUsername(String username) {
+		     
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public Mono<BizServerResponse<Object>> update(WeakHashMap<String, String> param) {
+		return userRepository.findById(param.get("id").trim())
+                .map(u -> {
+                	if (param.containsKey("name")) {
+            			u.setName(param.get("name"));
+            		}
+            		if (param.containsKey("mobileNo")) {
+            			u.setMobileNo(param.get("mobileNo"));
+            		}
+            		if (param.containsKey("city")) {
+            			u.setCity(param.get("city"));
+            		}
+            		if (param.containsKey("state")) {
+            			u.setState(param.get("state"));
+            		}
+            		if (param.containsKey("country")) {
+            			u.setCountry(param.get("country"));
+            		}
+            		
+                    return u;
+                })
+                .flatMap(p -> userRepository.save(p)).map(pp->{
+                	response = new BizServerResponse<>();
+                	response.setStatus(true);
+        			response.setMessage("User have been updated successfully.");
+        			response.setData(pp);
+        			return response;
+                });
 	}
 	
 }

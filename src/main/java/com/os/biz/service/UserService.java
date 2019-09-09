@@ -22,5 +22,6 @@ public interface UserService {
 		Mono<BizServerResponse<Object>> login(WeakHashMap<String, String> email);
 		public Mono<User> findByUsername(String username);
 		Mono<BizServerResponse<?>> findAll(int page, int size);
+		Mono<BizServerResponse<Object>> update(WeakHashMap<String, String> param);
 
 }

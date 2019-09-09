@@ -58,5 +58,10 @@ public class UserController {
 		return userService.findByMobileNo(param);
 	}
 	
+	@PostMapping(value = URLConstant.UPDATE)
+	public Mono<BizServerResponse<Object>> update(@RequestBody WeakHashMap<String, String> param) {
+		return userService.update(param);
+	}
+	
 
 }
