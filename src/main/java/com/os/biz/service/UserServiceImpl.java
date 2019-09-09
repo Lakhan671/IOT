@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService {
 			response.setData(user);
 			return response;
 		});
-		
 	}
 
 	@Override
