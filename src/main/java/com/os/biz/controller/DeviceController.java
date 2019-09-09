@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.os.biz.entity.Device;
 import com.os.biz.service.DeviceService;
 import com.os.biz.util.BizServerResponse;
 
@@ -51,4 +52,15 @@ public class DeviceController {
 		return deviceService.deleteById(param);
 		
 	}
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public Mono<Device>update(@RequestBody WeakHashMap<String,String> param){
+		return deviceService.update(param);
+		
+	}
+	@RequestMapping(value="/findById",method=RequestMethod.POST)
+	public Mono<Device>findById(@RequestBody WeakHashMap<String,String> param){
+		return deviceService.findById(param.get("id"));
+		
+	}
+	
 }

@@ -41,7 +41,7 @@ public class AuthenticationController {
 	private UserService userRepository;
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public Mono<BizServerResponse<Object>> login(@RequestBody AuthRequest ar) {
-		log.info("Trace:" + ToStringBuilder.reflectionToString(ar));
+	//	log.info("Trace:" + ToStringBuilder.reflectionToString(ar));
 		    response = new BizServerResponse<>();
 		    response.setStatus(false);
 			response.setMessage("your are not authroize to login. Please  signup....");

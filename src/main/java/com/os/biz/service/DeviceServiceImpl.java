@@ -1,6 +1,5 @@
 package com.os.biz.service;
 
-import java.util.ArrayList;
 import java.util.WeakHashMap;
 
 import org.springframework.stereotype.Service;
@@ -27,13 +26,14 @@ public class DeviceServiceImpl implements DeviceService {
 	 * @see com.os.biz.service.LightService#findById(java.lang.String)
 	 */
 	@Override
-	public Mono<BizServerResponse<?>> findById(String id) {
+	public Mono<Device> findById(String id) {
 
-		response = new BizServerResponse<>();
-		response.setData(deviceRepository.findById(id));
-		response.setStatus(true);
-		response.setMessage("Device have been added successfully.");
-		return Mono.just(response);
+		//response = new BizServerResponse<>();
+	return deviceRepository.findById(id);
+		//response.setData();
+		//response.setStatus(true);
+		//response.setMessage("Device have been get successfully.");
+		//return Mono.just(response);
 
 	}
 
@@ -175,6 +175,19 @@ public class DeviceServiceImpl implements DeviceService {
 			response.setData(mm);
 			return response;
 		});
+	}
+	
+	@Override
+	public Mono<Device> update(WeakHashMap<String, String> param) {
+		
+		return deviceRepository.findById(param.get("id").trim())
+                .map(p -> {
+                    p.setOnOff(Boolean.valueOf(param.get("onOff")));
+                   
+                    return p;
+                })
+                .flatMap(p -> deviceRepository.save(p));
+		  
 	}
 
 }
