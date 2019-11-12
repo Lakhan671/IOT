@@ -1,25 +1,13 @@
 package com.os.biz.repository;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
+import com.os.biz.entity.AuditLogs;
+import reactor.core.publisher.Flux;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Repository
-public class LoggingInMemoryHttpTraceRepository extends InMemoryHttpTraceRepository {
-	private Logger log = LoggerFactory.getLogger(this.getClass());
-	
-    public void add(HttpTrace trace) {
-        super.add(trace);
-		
-		  log.info("Trace:" + ToStringBuilder.reflectionToString(trace));
-		  log.info("Request:" +
-		  ToStringBuilder.reflectionToString(trace.getRequest())); log.info("Response:"
-		  + ToStringBuilder.reflectionToString(trace.getResponse()));
-		 
-    }
+public interface LoggingInMemoryHttpTraceRepository extends ReactiveMongoRepository <AuditLogs, String> {
+	@Query("{ id: { $exists: true }}")
+	Flux<AuditLogs> retrieveAllAuditLogsPaged(final Pageable page);
 }
